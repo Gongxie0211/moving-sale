@@ -1048,7 +1048,7 @@ function openModal(id) {
   if (isClosed()) {
     actionEl.innerHTML = `<span class="bid-closed">${t("bid_closed")}</span>`;
   } else {
-    const formUrl = buildFormUrl(item.name);
+    const formUrl = buildFormUrl(getItemName(item));
     actionEl.innerHTML = formUrl
       ? `<a class="btn-bid-lg" href="${formUrl}" target="_blank" rel="noopener">${t("btn_bid")}</a>`
       : `<p style="color:#e76f51;font-size:.85rem;text-align:center;font-weight:700">${t("form_not_set")}</p>`;
