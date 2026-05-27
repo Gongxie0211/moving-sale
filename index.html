@@ -511,6 +511,57 @@
       font-weight: 700;
     }
 
+    /* ======= BID FORM MODAL ======= */
+    .bid-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.55);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .bid-overlay.open { display: flex; }
+    .bid-modal {
+      background: #fff;
+      border-radius: 16px;
+      width: 100%; max-width: 480px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 8px 40px rgba(0,0,0,.18);
+    }
+    .bid-body { padding: 32px 28px 28px; }
+    .bid-title { font-size: 1.1rem; color: var(--green); margin-bottom: 4px; }
+    .bid-item-banner {
+      background: var(--green-l);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--green-d);
+      margin: 12px 0 20px;
+      word-break: break-word;
+    }
+    .bf-field { margin-bottom: 18px; }
+    .bf-field label { display: block; font-size: .83rem; font-weight: 700; color: #333; margin-bottom: 6px; }
+    .bf-field label .req { color: var(--orange); margin-left: 2px; }
+    .bf-field input {
+      width: 100%;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: .95rem;
+      font-family: inherit;
+      transition: border-color .2s;
+    }
+    .bf-field input:focus { outline: none; border-color: var(--green); }
+    .bf-hint { font-size: .78rem; color: var(--muted); margin-top: 5px; }
+    .bid-success { display: none; text-align: center; padding: 12px 0 8px; }
+    .bid-success .emo { font-size: 2.8rem; margin-bottom: 10px; }
+    .bid-success h3 { color: var(--green); font-size: 1.05rem; margin-bottom: 10px; line-height: 1.6; }
+    .bid-success p { color: var(--muted); font-size: .87rem; line-height: 1.75; }
+
     /* ======= FOOTER ======= */
     footer {
       background: var(--green-d);
@@ -617,6 +668,40 @@
   </div>
 </div>
 
+<!-- ===== 入札フォーム モーダル ===== -->
+<div class="bid-overlay" id="bid-overlay">
+  <div class="bid-modal">
+    <button class="modal-close" id="bid-close" aria-label="Close">✕</button>
+    <div class="bid-body">
+      <h2 class="bid-title">🖊 入札する / တင်ဒါဆွဲမည်</h2>
+      <div class="bid-item-banner" id="bid-item-banner"></div>
+
+      <form id="bid-form">
+        <div class="bf-field">
+          <label>お名前 / အမည် <span class="req">*</span></label>
+          <input id="bf-name" required placeholder="山田 太郎 / ဦးအောင်">
+        </div>
+        <div class="bf-field">
+          <label>連絡先（メール or Viber Phone No.）/ ဆက်သွယ်ရာ <span class="req">*</span></label>
+          <input id="bf-contact" required placeholder="email@example.com または 09xxxxxxxx">
+        </div>
+        <div class="bf-field">
+          <label>入札金額（Ks）/ တင်ဒါပမာဏ（Ks） <span class="req">*</span></label>
+          <input id="bf-price" required type="number" min="1">
+          <p class="bf-hint" id="bf-hint"></p>
+        </div>
+        <button class="btn-bid-lg" type="submit" id="bf-btn">🖊 入札する / တင်ဒါဆွဲမည်</button>
+      </form>
+
+      <div class="bid-success" id="bid-success">
+        <div class="emo">✅</div>
+        <h3>入札受付完了！<br>တင်ဒါကို လက်ခံပြီးပါပြီ</h3>
+        <p>締め切り後、最高入札者の方にのみご連絡します。<br>ကျေးဇူးတင်ပါသည်！</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ===== FOOTER ===== -->
 <footer>
   <p data-i18n="footer">မေးမြန်းလိုသည်များ ရောင်းသူထံ တိုက်ရိုက်မေးနိုင်ပါသည်</p>
@@ -630,9 +715,8 @@
    STEP 1: Google フォームの設定
    ------------------------------------------------------- */
 const CONFIG = {
-  deadline: new Date("2026-06-14T23:59:59"),
-  googleFormUrl:       "https://docs.google.com/forms/d/e/1FAIpQLScs_W2sQZL9l7ekw-x2ay5lTXUPMYveIP0Lk4VAxko4kzCr1Q/viewform",
-  googleFormItemField: "entry.1843391729",
+  deadline:    new Date("2026-06-14T23:59:59"),
+  gasEndpoint: "",   // GAS Web App デプロイURL（デプロイ後ここに貼り付け）
 };
 
 /* -------------------------------------------------------
@@ -874,12 +958,90 @@ function fmt(price, currency) {
   return price.toLocaleString() + " Ks";
 }
 
-function buildFormUrl(itemName) {
-  const base = CONFIG.googleFormUrl;
-  if (base.includes("YOUR_FORM_ID_HERE")) return null;
-  if (!CONFIG.googleFormItemField || CONFIG.googleFormItemField.includes("XXXXX")) return base;
-  return base + "?" + CONFIG.googleFormItemField + "=" + encodeURIComponent(itemName);
+function openBidForm(itemId) {
+  const item = ITEMS.find(i => i.id === itemId);
+  if (!item) return;
+
+  // 商品名バナー
+  document.getElementById("bid-item-banner").textContent = getItemName(item);
+
+  // 最低入札額をセット
+  const price = item.minPrice || 0;
+  const priceInput = document.getElementById("bf-price");
+  priceInput.value = price || "";
+  priceInput.min = price || 1;
+
+  // ヒントテキスト
+  const hint = document.getElementById("bf-hint");
+  if (item.minPrice) {
+    const display = currentLang === "ja"
+      ? "¥" + Math.round(item.minPrice / 25).toLocaleString() + "（" + item.minPrice.toLocaleString() + " Ks）以上"
+      : "အနည်းဆုံး " + item.minPrice.toLocaleString() + " Ks";
+    hint.textContent = display;
+  } else {
+    hint.textContent = currentLang === "ja" ? "要相談" : "ညှိနှိုင်းရမည်";
+  }
+
+  // フォームリセット（前回入力を保持しない）
+  document.getElementById("bid-form").style.display = "";
+  document.getElementById("bid-success").style.display = "none";
+  document.getElementById("bf-btn").disabled = false;
+  document.getElementById("bf-btn").textContent = "🖊 入札する / တင်ဒါဆွဲမည်";
+
+  // 現在の商品IDを保持
+  document.getElementById("bid-form").dataset.itemName = getItemName(item);
+
+  document.getElementById("bid-overlay").classList.add("open");
+  document.body.style.overflow = "hidden";
 }
+
+function closeBidForm() {
+  document.getElementById("bid-overlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+document.getElementById("bid-close").addEventListener("click", closeBidForm);
+document.getElementById("bid-overlay").addEventListener("click", e => {
+  if (e.target === document.getElementById("bid-overlay")) closeBidForm();
+});
+
+document.getElementById("bid-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const btn = document.getElementById("bf-btn");
+  btn.disabled = true;
+  btn.textContent = "送信中... / ပို့နေသည်...";
+
+  const data = {
+    name:    document.getElementById("bf-name").value,
+    contact: document.getElementById("bf-contact").value,
+    item:    this.dataset.itemName,
+    price:   document.getElementById("bf-price").value,
+  };
+
+  if (!CONFIG.gasEndpoint) {
+    // エンドポイント未設定時はコンソールに出力（開発用）
+    console.log("入札データ（GAS未設定）:", data);
+    document.getElementById("bid-form").style.display = "none";
+    document.getElementById("bid-success").style.display = "block";
+    return;
+  }
+
+  fetch(CONFIG.gasEndpoint, {
+    method: "POST",
+    mode:   "no-cors",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body:   new URLSearchParams(data).toString(),
+  })
+  .then(() => {
+    document.getElementById("bid-form").style.display = "none";
+    document.getElementById("bid-success").style.display = "block";
+  })
+  .catch(() => {
+    alert("送信エラーが発生しました。もう一度お試しください。");
+    btn.disabled = false;
+    btn.textContent = "🖊 入札する / တင်ဒါဆွဲမည်";
+  });
+});
 
 function getImages(item) {
   if (Array.isArray(item.images) && item.images.length > 0) return item.images;
@@ -1045,10 +1207,7 @@ function openModal(id) {
   if (isClosed()) {
     actionEl.innerHTML = `<span class="bid-closed">${t("bid_closed")}</span>`;
   } else {
-    const formUrl = buildFormUrl(getItemName(item));
-    actionEl.innerHTML = formUrl
-      ? `<a class="btn-bid-lg" href="${formUrl}" target="_blank" rel="noopener">${t("btn_bid")}</a>`
-      : `<p style="color:#e76f51;font-size:.85rem;text-align:center;font-weight:700">${t("form_not_set")}</p>`;
+    actionEl.innerHTML = `<button class="btn-bid-lg" onclick="openBidForm(${item.id})">${t("btn_bid")}</button>`;
   }
 
   document.getElementById("overlay").classList.add("open");
