@@ -1036,21 +1036,24 @@ document.getElementById("bid-form").addEventListener("submit", function(e) {
     return;
   }
 
-  // hidden iframe 経由で GET（GAS 302リダイレクト対応）
-  _bidSubmitting = true;
-  const tmpForm = document.createElement("form");
-  tmpForm.method = "GET";
-  tmpForm.action = CONFIG.gasEndpoint;
-  tmpForm.target = "bid-iframe";
-  tmpForm.style.display = "none";
-  Object.entries(data).forEach(([k, v]) => {
-    const inp = document.createElement("input");
-    inp.type = "hidden"; inp.name = k; inp.value = v;
-    tmpForm.appendChild(inp);
-  });
-  document.body.appendChild(tmpForm);
-  tmpForm.submit();
-  document.body.removeChild(tmpForm);
+  const url = CONFIG.gasEndpoint + "?" + new URLSearchParams(data).toString();
+  fetch(url)
+    .then(r => r.text())
+    .then(text => {
+      if (text.trim() === "ok") {
+        document.getElementById("bid-form").style.display = "none";
+        document.getElementById("bid-success").style.display = "block";
+      } else {
+        alert("送信エラー: " + text);
+        btn.disabled = false;
+        btn.textContent = "🖊 入札する / တင်ဒါဆွဲမည်";
+      }
+    })
+    .catch(err => {
+      alert("通信エラー: " + err.message);
+      btn.disabled = false;
+      btn.textContent = "🖊 入札する / တင်ဒါဆွဲမည်";
+    });
 });
 
 function getImages(item) {
