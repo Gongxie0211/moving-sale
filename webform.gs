@@ -29,9 +29,13 @@ function setup() {
   console.log('次: デプロイ → 新しいデプロイ → ウェブアプリ');
 }
 
-// ===== POST受信・スプレッドシートに保存 =====
-function doPost(e) {
+// ===== GET受信・スプレッドシートに保存 =====
+// GASのリダイレクト(302)でPOSTがGETに変換されるため doGet で受信する
+function doGet(e) {
   try {
+    if (!e.parameter.name) {
+      return ContentService.createTextOutput('ready');
+    }
     const ssId = PropertiesService.getScriptProperties().getProperty('SS_ID');
     if (!ssId) throw new Error('setup() を先に実行してください');
     const sheet = SpreadsheetApp.openById(ssId).getActiveSheet();
@@ -47,3 +51,5 @@ function doPost(e) {
     return ContentService.createTextOutput('error: ' + err.message);
   }
 }
+
+function doPost(e) { return doGet(e); }

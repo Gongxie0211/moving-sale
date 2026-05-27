@@ -1036,10 +1036,10 @@ document.getElementById("bid-form").addEventListener("submit", function(e) {
     return;
   }
 
-  // hidden iframe 経由で POST（GAS リダイレクト対応）
+  // hidden iframe 経由で GET（GAS 302リダイレクト対応）
   _bidSubmitting = true;
   const tmpForm = document.createElement("form");
-  tmpForm.method = "POST";
+  tmpForm.method = "GET";
   tmpForm.action = CONFIG.gasEndpoint;
   tmpForm.target = "bid-iframe";
   tmpForm.style.display = "none";
