@@ -852,7 +852,8 @@ function translateCond(cond) {
 }
 
 function getItemName(item) {
-  return (currentLang === "my" && item.name_my) ? item.name_my : item.name;
+  const base = (currentLang === "my" && item.name_my) ? item.name_my : item.name;
+  return "No." + item.id + "  " + base;
 }
 function getItemDesc(item) {
   return (currentLang === "my" && item.description_my) ? item.description_my : item.description;
