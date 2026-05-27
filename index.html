@@ -668,6 +668,9 @@
   </div>
 </div>
 
+<!-- hidden iframe：GAS への POST 送信用（CORS回避） -->
+<iframe name="bid-iframe" id="bid-iframe" style="display:none"></iframe>
+
 <!-- ===== 入札フォーム モーダル ===== -->
 <div class="bid-overlay" id="bid-overlay">
   <div class="bid-modal">
@@ -1000,6 +1003,14 @@ function closeBidForm() {
   document.body.style.overflow = "";
 }
 
+let _bidSubmitting = false;
+document.getElementById("bid-iframe").addEventListener("load", function() {
+  if (!_bidSubmitting) return;
+  _bidSubmitting = false;
+  document.getElementById("bid-form").style.display = "none";
+  document.getElementById("bid-success").style.display = "block";
+});
+
 document.getElementById("bid-close").addEventListener("click", closeBidForm);
 document.getElementById("bid-overlay").addEventListener("click", e => {
   if (e.target === document.getElementById("bid-overlay")) closeBidForm();
@@ -1019,28 +1030,27 @@ document.getElementById("bid-form").addEventListener("submit", function(e) {
   };
 
   if (!CONFIG.gasEndpoint) {
-    // エンドポイント未設定時はコンソールに出力（開発用）
     console.log("入札データ（GAS未設定）:", data);
     document.getElementById("bid-form").style.display = "none";
     document.getElementById("bid-success").style.display = "block";
     return;
   }
 
-  fetch(CONFIG.gasEndpoint, {
-    method: "POST",
-    mode:   "no-cors",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body:   new URLSearchParams(data).toString(),
-  })
-  .then(() => {
-    document.getElementById("bid-form").style.display = "none";
-    document.getElementById("bid-success").style.display = "block";
-  })
-  .catch(() => {
-    alert("送信エラーが発生しました。もう一度お試しください。");
-    btn.disabled = false;
-    btn.textContent = "🖊 入札する / တင်ဒါဆွဲမည်";
+  // hidden iframe 経由で POST（GAS リダイレクト対応）
+  _bidSubmitting = true;
+  const tmpForm = document.createElement("form");
+  tmpForm.method = "POST";
+  tmpForm.action = CONFIG.gasEndpoint;
+  tmpForm.target = "bid-iframe";
+  tmpForm.style.display = "none";
+  Object.entries(data).forEach(([k, v]) => {
+    const inp = document.createElement("input");
+    inp.type = "hidden"; inp.name = k; inp.value = v;
+    tmpForm.appendChild(inp);
   });
+  document.body.appendChild(tmpForm);
+  tmpForm.submit();
+  document.body.removeChild(tmpForm);
 });
 
 function getImages(item) {
