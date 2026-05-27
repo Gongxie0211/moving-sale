@@ -877,11 +877,8 @@ function fmt(price, currency) {
 function buildFormUrl(itemName) {
   const base = CONFIG.googleFormUrl;
   if (base.includes("YOUR_FORM_ID_HERE")) return null;
-  const p = new URLSearchParams();
-  if (CONFIG.googleFormItemField && !CONFIG.googleFormItemField.includes("XXXXX")) {
-    p.set(CONFIG.googleFormItemField, itemName);
-  }
-  return base + "?" + p.toString();
+  if (!CONFIG.googleFormItemField || CONFIG.googleFormItemField.includes("XXXXX")) return base;
+  return base + "?" + CONFIG.googleFormItemField + "=" + encodeURIComponent(itemName);
 }
 
 function getImages(item) {
