@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ပစ္စည်းရောင်းချပွဲ 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+Myanmar:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green:   #2d6a4f;
+      --green-d: #1b4332;
+      --green-l: #d8f3dc;
+      --orange:  #e76f51;
+      --orange-l:#fff3ee;
+      --bg:      #f7f5f2;
+      --card:    #ffffff;
+      --text:    #1a1a1a;
+      --muted:   #666666;
+      --border:  #e4e4e4;
+      --radius:  14px;
+      --shadow:  0 2px 16px rgba(0,0,0,.07);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans Myanmar', 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ======= LANGUAGE TOGGLE ======= */
+    .lang-toggle {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 400;
+      display: flex;
+      background: rgba(0,0,0,.28);
+      border-radius: 24px;
+      padding: 3px;
+      backdrop-filter: blur(10px);
+      gap: 2px;
+    }
+    .lang-toggle button {
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,.65);
+      font-size: .78rem;
+      font-weight: 700;
+      padding: 5px 13px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all .18s;
+      font-family: inherit;
+      letter-spacing: .02em;
+      white-space: nowrap;
+    }
+    .lang-toggle button.active {
+      background: #fff;
+      color: var(--green-d);
+    }
+    .lang-toggle button:not(.active):hover {
+      color: #fff;
+    }
+
+    /* ======= HEADER ======= */
+    header {
+      background: linear-gradient(135deg, var(--green-d) 0%, var(--green) 100%);
+      color: #fff;
+      padding: 52px 20px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='28'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    header > * { position: relative; }
+    header .badge {
+      display: inline-block;
+      background: var(--orange);
+      color: #fff;
+      font-size: .8rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      letter-spacing: .05em;
+      margin-bottom: 16px;
+    }
+    header h1 {
+      font-size: clamp(1.6rem, 5vw, 2.6rem);
+      font-weight: 900;
+      letter-spacing: -.01em;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    header .subtitle {
+      font-size: 1rem;
+      opacity: .85;
+      margin-bottom: 32px;
+    }
+
+    /* ======= COUNTDOWN ======= */
+    .countdown {
+      display: inline-flex;
+      gap: 10px;
+      background: rgba(0,0,0,.2);
+      border-radius: 12px;
+      padding: 16px 24px;
+      margin-bottom: 16px;
+    }
+    .cd-item { text-align: center; min-width: 56px; }
+    .cd-num {
+      display: block;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 900;
+      line-height: 1;
+    }
+    .cd-label { font-size: .72rem; opacity: .75; margin-top: 4px; }
+    .cd-sep {
+      font-size: 2rem;
+      font-weight: 900;
+      opacity: .5;
+      align-self: center;
+      margin-top: -8px;
+    }
+    .deadline-note { font-size: .9rem; opacity: .8; }
+
+    /* ======= RULES ======= */
+    .rules-section {
+      max-width: 820px;
+      margin: 32px auto 0;
+      padding: 0 16px;
+    }
+    .rules-box {
+      background: var(--orange-l);
+      border-left: 5px solid var(--orange);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 20px 24px;
+    }
+    .rules-box h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--orange);
+    }
+    .rules-box ul { padding-left: 20px; }
+    .rules-box li { font-size: .92rem; margin-bottom: 4px; color: #444; }
+
+    /* ======= ITEMS SECTION ======= */
+    .items-section {
+      max-width: 1040px;
+      margin: 40px auto;
+      padding: 0 16px 60px;
+    }
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 900;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--green-d);
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: var(--border);
+      border-radius: 2px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 24px;
+    }
+
+    /* ======= CARD ======= */
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 32px rgba(0,0,0,.13);
+    }
+    .card-img-wrap {
+      position: relative;
+      height: 210px;
+      background: #f0f0ef;
+      overflow: hidden;
+    }
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .3s ease;
+    }
+    .card:hover .card-img-wrap img { transform: scale(1.04); }
+    .card-img-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      color: #ccc;
+      background: #f5f5f5;
+    }
+    .condition-tag {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0,0,0,.6);
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+    }
+    .photo-count-tag {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(0,0,0,.55);
+      color: #fff;
+      font-size: .7rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+    }
+    .card-body {
+      padding: 18px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-name {
+      font-size: 1.08rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .card-desc {
+      font-size: .83rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+      flex: 1;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    .card-price-wrap { margin-bottom: 14px; }
+    .card-price-label { font-size: .72rem; color: var(--muted); }
+    .card-price {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--orange);
+      line-height: 1.2;
+    }
+    .card-price small { font-size: .85rem; font-weight: 500; }
+    .btn-bid {
+      display: block;
+      width: 100%;
+      padding: 11px;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: .95rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      text-align: center;
+      letter-spacing: .03em;
+      transition: background .15s;
+    }
+    .btn-bid:hover { background: var(--green-d); }
+
+    /* ======= GALLERY ======= */
+    .gallery-main {
+      position: relative;
+      height: 320px;
+      background: #f0f0ef;
+      border-radius: 18px 18px 0 0;
+      overflow: hidden;
+    }
+    .gallery-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .gallery-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      color: #ddd;
+    }
+    .gallery-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,.45);
+      color: #fff;
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .15s;
+      z-index: 5;
+      line-height: 1;
+    }
+    .gallery-nav:hover { background: rgba(0,0,0,.75); }
+    .gallery-prev { left: 10px; }
+    .gallery-next { right: 10px; }
+    .gallery-dots {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+    }
+    .gallery-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.45);
+      cursor: pointer;
+      border: none;
+      padding: 0;
+      transition: background .15s, transform .15s;
+    }
+    .gallery-dot.active { background: #fff; transform: scale(1.3); }
+    .gallery-thumbs {
+      display: flex;
+      gap: 6px;
+      padding: 8px 12px;
+      background: #f5f5f4;
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+    .gallery-thumb {
+      width: 58px;
+      height: 58px;
+      flex-shrink: 0;
+      border-radius: 7px;
+      overflow: hidden;
+      cursor: pointer;
+      opacity: .55;
+      transition: opacity .15s;
+      border: 2.5px solid transparent;
+    }
+    .gallery-thumb.active { opacity: 1; border-color: var(--green); }
+    .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ======= MODAL ======= */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      backdrop-filter: blur(3px);
+    }
+    .overlay.open { display: flex; }
+    .modal {
+      background: var(--card);
+      border-radius: 18px;
+      max-width: 620px;
+      width: 100%;
+      max-height: 92vh;
+      overflow-y: auto;
+      position: relative;
+      animation: modalIn .2s ease;
+    }
+    @keyframes modalIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: rgba(0,0,0,.12);
+      border: none;
+      color: #fff;
+      font-size: 1.2rem;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: background .15s;
+    }
+    .modal-close:hover { background: rgba(0,0,0,.3); }
+    .modal-body { padding: 24px 28px 28px; }
+    .modal-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .modal-condition {
+      background: var(--green-l);
+      color: var(--green-d);
+      font-size: .75rem;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 20px;
+    }
+    .modal-name {
+      font-size: 1.5rem;
+      font-weight: 900;
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+    .modal-desc {
+      color: var(--muted);
+      font-size: .92rem;
+      margin-bottom: 18px;
+      line-height: 1.7;
+    }
+    .modal-price-box {
+      background: var(--orange-l);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 18px;
+    }
+    .modal-price-label { font-size: .8rem; color: var(--muted); margin-bottom: 2px; }
+    .modal-price-val {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--orange);
+      line-height: 1.2;
+    }
+    .modal-price-note { font-size: .78rem; color: var(--muted); margin-top: 4px; }
+    .modal-ref-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--green);
+      font-size: .88rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      transition: border-color .15s;
+    }
+    .modal-ref-link:hover { border-color: var(--green); }
+    .btn-bid-lg {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 900;
+      font-family: inherit;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      letter-spacing: .03em;
+      transition: background .15s, transform .1s;
+    }
+    .btn-bid-lg:hover { background: #d4603e; transform: scale(1.01); }
+    .bid-closed {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background: #ccc;
+      color: #fff;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    /* ======= FOOTER ======= */
+    footer {
+      background: var(--green-d);
+      color: rgba(255,255,255,.7);
+      text-align: center;
+      padding: 24px 16px;
+      font-size: .85rem;
+    }
+
+    /* ======= RESPONSIVE ======= */
+    @media (max-width: 480px) {
+      .countdown { padding: 12px 16px; gap: 6px; }
+      .cd-item { min-width: 44px; }
+      .modal-body { padding: 18px 20px 24px; }
+      .gallery-main { height: 220px; }
+      .lang-toggle { top: 10px; right: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== 言語切り替え ===== -->
+<div class="lang-toggle">
+  <button id="btn-ja" onclick="setLang('ja')">日本語</button>
+  <button id="btn-my" class="active" onclick="setLang('my')">မြန်မာ</button>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="badge" data-i18n="badge">🏫 စာသင်ခန်း ရောင်းချပွဲ</div>
+  <h1 data-i18n-html="hero">တန်ဖိုးထားသုံးစွဲမည့်<br>သူများအတွက်</h1>
+  <p class="subtitle" data-i18n="subtitle">တင်ဒါနည်းလမ်း | အမြင့်ဆုံးတင်ဒါသူသို့ ရောင်းချမည်</p>
+
+  <div class="countdown" id="countdown">
+    <div class="cd-item">
+      <span class="cd-num" id="cd-days">--</span>
+      <span class="cd-label" data-i18n="label_day">ရက်</span>
+    </div>
+    <span class="cd-sep">:</span>
+    <div class="cd-item">
+      <span class="cd-num" id="cd-hours">--</span>
+      <span class="cd-label" data-i18n="label_hour">နာရီ</span>
+    </div>
+    <span class="cd-sep">:</span>
+    <div class="cd-item">
+      <span class="cd-num" id="cd-mins">--</span>
+      <span class="cd-label" data-i18n="label_min">မိနစ်</span>
+    </div>
+    <span class="cd-sep">:</span>
+    <div class="cd-item">
+      <span class="cd-num" id="cd-secs">--</span>
+      <span class="cd-label" data-i18n="label_sec">စက္ကန့်</span>
+    </div>
+  </div>
+  <p class="deadline-note" data-i18n="deadline_note">နောက်ဆုံးရက်: ၂၀၂၆ ဇွန်လ ၁၄ ရက် ၂၃:၅၉</p>
+</header>
+
+<!-- ===== RULES ===== -->
+<div class="rules-section">
+  <div class="rules-box">
+    <h2 data-i18n="rules_title">📋 တင်ဒါဆွဲခြင်းစည်းကမ်းများ</h2>
+    <ul>
+      <li data-i18n="rule1">အနည်းဆုံးပမာဏထက် မနည်းသောငွေပမာဏ ထည့်သွင်းပါ</li>
+      <li data-i18n-html="rule2">အခြားသူများ၏ တင်ဒါပမာဏ <strong>မသိနိုင်ပါ</strong></li>
+      <li data-i18n="rule3">နောက်ဆုံးရက်ပြီးနောက် ပစ္စည်းတစ်ခုစီအတွက် အမြင့်ဆုံးဈေးပေးသူကိုသာ ဆက်သွယ်မည်</li>
+      <li data-i18n="rule4">တူညီသောပမာဏဆိုပါက ဦးစွာတင်ဒါဆွဲသူကို ဦးစားပေးမည်</li>
+      <li data-i18n="rule5">လွှဲပြောင်းရက်မှာ ဇွန် ၂၇ ရက်နောက်ပိုင်း၊ နေရာမှာ Another Story တွင်ဖြစ်သည်။ တင်ဒါဆွဲပြီးနောက် ဈေးလျှော့ပေးခြင်း လုံးဝမပြုပါ</li>
+      <li data-i18n="rule6">တစ်ဦးချင်း ပစ္စည်းများစွာကို တင်ဒါဆွဲနိုင်သည်</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== ITEMS ===== -->
+<div class="items-section">
+  <h2 class="section-title" data-i18n="section_items">ပစ္စည်းစာရင်း</h2>
+  <div class="grid" id="grid"></div>
+</div>
+
+<!-- ===== MODAL ===== -->
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal" role="dialog" aria-modal="true">
+    <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
+    <div class="gallery-main" id="gallery-main">
+      <div class="gallery-fallback" id="gallery-fallback">📷</div>
+      <button class="gallery-nav gallery-prev" id="gallery-prev" aria-label="前の写真">&#8249;</button>
+      <button class="gallery-nav gallery-next" id="gallery-next" aria-label="次の写真">&#8250;</button>
+      <div class="gallery-dots" id="gallery-dots"></div>
+    </div>
+    <div class="gallery-thumbs" id="gallery-thumbs" style="display:none"></div>
+    <div class="modal-body">
+      <div class="modal-meta">
+        <span class="modal-condition" id="modal-cond"></span>
+      </div>
+      <h2 class="modal-name" id="modal-name"></h2>
+      <p class="modal-desc" id="modal-desc"></p>
+      <div class="modal-price-box">
+        <div class="modal-price-label" id="modal-price-label">အနည်းဆုံးတင်ဒါပမာဏ</div>
+        <div class="modal-price-val" id="modal-price"></div>
+        <div class="modal-price-note" id="modal-price-note">ဤပမာဏထက် မနည်းသောငွေဖြင့် တင်ဒါဆွဲပါ</div>
+      </div>
+      <div id="modal-ref"></div>
+      <div id="modal-action"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p data-i18n="footer">မေးမြန်းလိုသည်များ ရောင်းသူထံ တိုက်ရိုက်မေးနိုင်ပါသည်</p>
+</footer>
+
+<!-- ===================================================
+     ⚙️ 設定 — ここを編集してください
+     =================================================== -->
+<script>
+/* -------------------------------------------------------
+   STEP 1: Google フォームの設定
+   ------------------------------------------------------- */
+const CONFIG = {
+  deadline: new Date("2026-06-14T23:59:59"),
+  googleFormUrl:       "https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/viewform",
+  googleFormItemField: "entry.XXXXXXXXX",
+};
+
+/* -------------------------------------------------------
+   STEP 2: 商品リスト
+   -------------------------------------------------------
+   写真1枚:  image: "images/item1.jpg"
+   写真複数: images: ["images/item1a.jpg", "images/item1b.jpg"]
+
+   ミャンマー語の商品名・説明を入れたい場合:
+     name_my: "မြန်မာဘာသာ商品名"
+     description_my: "မြန်မာဘာသာ説明文"
+   ------------------------------------------------------- */
+const ITEMS = [
+  { id:1,  name:"Inverter: True Power 2000VA/24V + Amazon 150Ah + Livfast 150Ah",
+    description:"2023年購入", minPrice:2000000, currency:"Ks",
+    images:["images/img_14.jpg"], productUrl:null, condition:"訳あり" },
+  { id:2,  name:"Inverter: Altima 1200VA/12V + A1 Green Tubular 250Ah",
+    description:"2023年購入", minPrice:2000000, currency:"Ks",
+    images:["images/img_28.jpg","images/img_30.jpg"], productUrl:null, condition:"良品" },
+  { id:3,  name:"Generator TAR600 12000",
+    description:"2022年購入", minPrice:null, currency:"Ks",
+    images:[], productUrl:null, condition:"" },
+  { id:4,  name:"Money Counter GFC-170",
+    description:"", minPrice:400000, currency:"Ks",
+    images:["images/img_17.jpg","images/img_35.jpg"],
+    productUrl:"https://share.google/19SaYzAywjOeVDVq5", condition:"良品" },
+  { id:5,  name:"Amp (Zulex BN-308C) + Speaker (Onkyo D-V77)",
+    description:"", minPrice:300000, currency:"Ks",
+    images:["images/img_33.jpg","images/img_34.jpg"],
+    productUrl:null, condition:"Speaker OK / Amp 片Ch音出ず" },
+  { id:6,  name:"Step-down Transformer 220V→100V 1000W",
+    description:"", minPrice:300000, currency:"Ks",
+    images:["images/img_09.jpg"], productUrl:null, condition:"" },
+  { id:7,  name:"Step-down Transformer 220V→100V 300W",
+    description:"", minPrice:300000, currency:"Ks",
+    images:["images/img_10.jpg"], productUrl:null, condition:"" },
+  { id:8,  name:"Panasonic Microwave",
+    description:"2017年頃購入", minPrice:250000, currency:"Ks",
+    images:[], productUrl:null, condition:"" },
+  { id:9,  name:"Xiaomi 50inch TV + Stand",
+    description:"2019年頃購入", minPrice:1300000, currency:"Ks",
+    images:["images/img_36.jpg","images/img_37.jpg"],
+    productUrl:null, condition:"機能は問題なし。周囲が赤く磁性あり" },
+  { id:10, name:"Drawer 5step Blue",
+    description:"2016年頃購入 / W33×L43×H109 / 5 Big Drawers", minPrice:80000, currency:"Ks",
+    images:["images/img_07.jpg","images/img_08.jpg"], productUrl:null, condition:"" },
+  { id:11, name:"Drawer 5step Green",
+    description:"2016年頃購入 / W33×L43×H109 / 5 Big Drawers", minPrice:80000, currency:"Ks",
+    images:["images/img_07.jpg","images/img_08.jpg"], productUrl:null, condition:"" },
+  { id:12, name:"Mixer + Wired Mic ×2 + Wireless Mic ×2",
+    description:"", minPrice:null, currency:"Ks",
+    images:[], productUrl:null, condition:"" },
+  { id:13, name:"Zhiyun Smooth 4 Gimbal Stabilizer (Smartphone)",
+    description:"", minPrice:200000, currency:"Ks",
+    images:["images/img_32.jpg"],
+    productUrl:"https://www.amazon.com/Smooth-Handheld-Stabilizer-Smartphone-Black/dp/B07BHCC3BV?th=1",
+    condition:"美品" },
+  { id:14, name:"Electric Guitar Set: Ibanez (Copy) + Yamaha (Modify) + Amp Yamaha AR-1500 + Multi Effector MG-300",
+    description:"", minPrice:2000000, currency:"Ks",
+    images:["images/img_01.jpg","images/img_02.jpg","images/img_03.jpg"],
+    productUrl:null, condition:"美品" },
+  { id:15, name:"生徒用イス",
+    description:"", minPrice:3000, currency:"Ks",
+    images:["images/img_05.jpg"], productUrl:null, condition:"" },
+  { id:16, name:"プラスチック棚",
+    description:"W33×L43×H109 / 5 Big Drawers", minPrice:80000, currency:"Ks",
+    images:["images/img_07.jpg","images/img_08.jpg"], productUrl:null, condition:"" },
+  { id:17, name:"Printer #1 Canon G1010",
+    description:"", minPrice:null, currency:"Ks",
+    images:["images/img_16.jpg"], productUrl:null, condition:"" },
+  { id:18, name:"Printer #2 Canon G1010",
+    description:"", minPrice:null, currency:"Ks",
+    images:["images/img_16.jpg"], productUrl:null, condition:"" },
+  { id:19, name:"Printer #3 Epson L4260",
+    description:"", minPrice:null, currency:"Ks",
+    images:[], productUrl:null, condition:"Jam Error" },
+  { id:20, name:"Xiaomi Wifi Router + Battery",
+    description:"", minPrice:30000, currency:"Ks",
+    images:["images/img_18.jpg","images/img_19.jpg"], productUrl:null, condition:"" },
+  { id:21, name:"Wifi Router TP-LINK",
+    description:"", minPrice:20000, currency:"Ks",
+    images:["images/img_20.jpg"], productUrl:null, condition:"" },
+  { id:22, name:"PC #1 Dell Inspiron 14 3000",
+    description:"8G RAM / 500GB SSD", minPrice:700000, currency:"Ks",
+    images:["images/img_21.jpg","images/img_26.jpg"],
+    productUrl:null, condition:"Fast, no-stress" },
+  { id:23, name:"PC #2 Dell Inspiron 14 3000",
+    description:"16G RAM / 1TB HDD", minPrice:600000, currency:"Ks",
+    images:["images/img_26.jpg","images/img_31.jpg"], productUrl:null, condition:"" },
+  { id:24, name:"PC #3",
+    description:"", minPrice:null, currency:"Ks",
+    images:[], productUrl:null, condition:"" },
+  { id:25, name:"壁掛け扇風機 ×3",
+    description:"", minPrice:300000, currency:"Ks",
+    images:["images/img_42.jpg"],
+    productUrl:null, condition:"1台は首が回らない。他2台は良好" },
+  { id:26, name:"Xiaomi 55inch TV + Stand",
+    description:"修理すれば治ると思うが不明", minPrice:400000, currency:"Ks",
+    images:["images/img_46.jpg","images/img_45.jpg"],
+    productUrl:null, condition:"故障（電源入らず要修理）" },
+  { id:27, name:"Circle Light with Remote",
+    description:"", minPrice:100000, currency:"Ks",
+    images:["images/img_47.jpg"], productUrl:null, condition:"" },
+  { id:28, name:"Tripod Big",
+    description:"", minPrice:100000, currency:"Ks",
+    images:["images/img_48.jpg"], productUrl:null, condition:"" },
+  { id:29, name:"Tripod Small",
+    description:"", minPrice:30000, currency:"Ks",
+    images:["images/img_50.jpg","images/img_51.jpg","images/img_49.jpg"],
+    productUrl:null, condition:"" },
+  { id:30, name:"イス",
+    description:"", minPrice:300000, currency:"Ks",
+    images:["images/img_52.jpg"], productUrl:null, condition:"" },
+  { id:31, name:"照明 Set（Lighting + Tripod ×3）",
+    description:"", minPrice:300000, currency:"Ks",
+    images:["images/img_52.jpg"], productUrl:null, condition:"ほぼ未使用" },
+  { id:32, name:"譜面台＋三脚",
+    description:"", minPrice:300000, currency:"Ks",
+    images:["images/img_55.jpg"], productUrl:null, condition:"" },
+];
+
+/* ===================================================
+   🌐 翻訳データ
+   =================================================== */
+const T = {
+  ja: {
+    badge:            "🏫 教室引っ越しセール",
+    hero:             "使えるものを<br>大切に使ってほしい人へ",
+    subtitle:         "封緘入札方式｜最高入札者に売却します",
+    deadline_note:    "締め切り：2026年6月14日（日）23:59",
+    label_day:        "日",
+    label_hour:       "時間",
+    label_min:        "分",
+    label_sec:        "秒",
+    rules_title:      "📋 入札ルール",
+    rule1: "最低入札額以上の金額を入力してください",
+    rule2: "他の方の入札額は<strong>非公開</strong>です（封緘入札方式）",
+    rule3: "締め切り後、商品ごとに最高入札者の方にのみご連絡します",
+    rule4: "同額の場合は先着優先とします",
+    rule5: "引き渡しは6月27日以降、場所はAnother Storyで。入札後の値引きには応じません",
+    rule6: "一人で複数商品に入札できます",
+    section_items:    "出品一覧",
+    min_price_label:  "最低入札額",
+    btn_detail:       "詳細・入札する →",
+    btn_closed:       "🔒 受付終了",
+    modal_price_label:"最低入札額",
+    modal_price_note: "これ以上の金額で入札してください",
+    ref_link:         "🔗 参考商品ページを見る",
+    btn_bid:          "🖊 この商品に入札する",
+    bid_closed:       "🔒 受付終了しました",
+    form_not_set:     "⚠️ Google フォームURLを設定してください（index.html の CONFIG）",
+    footer:           "ご不明な点は出品者までお気軽にどうぞ",
+    closed_msg:       "🔒 受付終了",
+    cond_mint:        "美品",
+    cond_good:        "良品",
+    cond_fair:        "普通",
+    cond_poor:        "訳あり",
+    photo_count:      (n) => `📷 ${n}枚`,
+    tilde:            "〜",
+  },
+  my: {
+    badge:            "🏫 စာသင်ခန်း ရောင်းချပွဲ",
+    hero:             "တန်ဖိုးထားသုံးစွဲမည့်<br>သူများအတွက်",
+    subtitle:         "တင်ဒါနည်းလမ်း | အမြင့်ဆုံးတင်ဒါသူသို့ ရောင်းချမည်",
+    deadline_note:    "နောက်ဆုံးရက်: ၂၀၂၆ ဇွန်လ ၁၄ ရက် ၂၃:၅၉",
+    label_day:        "ရက်",
+    label_hour:       "နာရီ",
+    label_min:        "မိနစ်",
+    label_sec:        "စက္ကန့်",
+    rules_title:      "📋 တင်ဒါဆွဲခြင်းစည်းကမ်းများ",
+    rule1: "အနည်းဆုံးပမာဏထက် မနည်းသောငွေပမာဏ ထည့်သွင်းပါ",
+    rule2: "အခြားသူများ၏ တင်ဒါပမာဏ <strong>မသိနိုင်ပါ</strong>",
+    rule3: "နောက်ဆုံးရက်ပြီးနောက် ပစ္စည်းတစ်ခုစီအတွက် အမြင့်ဆုံးဈေးပေးသူကိုသာ ဆက်သွယ်မည်",
+    rule4: "တူညီသောပမာဏဆိုပါက ဦးစွာတင်ဒါဆွဲသူကို ဦးစားပေးမည်",
+    rule5: "လွှဲပြောင်းရက်မှာ ဇွန် ၂၇ ရက်နောက်ပိုင်း၊ နေရာမှာ Another Story တွင်ဖြစ်သည်။ တင်ဒါဆွဲပြီးနောက် ဈေးလျှော့ပေးခြင်း လုံးဝမပြုပါ",
+    rule6: "တစ်ဦးချင်း ပစ္စည်းများစွာကို တင်ဒါဆွဲနိုင်သည်",
+    section_items:    "ပစ္စည်းစာရင်း",
+    min_price_label:  "အနည်းဆုံးတင်ဒါ",
+    btn_detail:       "အသေးစိတ်・တင်ဒါဆွဲမည် →",
+    btn_closed:       "🔒 ပိတ်ပြီ",
+    modal_price_label:"အနည်းဆုံးတင်ဒါပမာဏ",
+    modal_price_note: "ဤပမာဏထက် မနည်းသောငွေဖြင့် တင်ဒါဆွဲပါ",
+    ref_link:         "🔗 ကိုးကားစာမျက်နှာကြည့်ရန်",
+    btn_bid:          "🖊 ဤပစ္စည်းကို တင်ဒါဆွဲမည်",
+    bid_closed:       "🔒 တင်ဒါပိတ်ပြီဖြစ်သည်",
+    form_not_set:     "⚠️ Google Form URL သတ်မှတ်ပါ (CONFIG)",
+    footer:           "မေးမြန်းလိုသည်များ ရောင်းသူထံ တိုက်ရိုက်မေးနိုင်ပါသည်",
+    closed_msg:       "🔒 တင်ဒါပိတ်ပြီ",
+    cond_mint:        "အခြေအနေကောင်းမွန်",
+    cond_good:        "အခြေအနေကောင်း",
+    cond_fair:        "သာမန်",
+    cond_poor:        "ချို့ယွင်းချက်ရှိ",
+    photo_count:      (n) => `📷 ${n} ပုံ`,
+    tilde:            "~",
+  },
+};
+
+/* ===================================================
+   以下は変更不要
+   =================================================== */
+let currentLang = "my";
+
+function t(key) {
+  return T[currentLang][key] ?? T.ja[key] ?? key;
+}
+
+const COND_MAP = {
+  "美品": "cond_mint",
+  "良品": "cond_good",
+  "良い": "cond_good",
+  "普通": "cond_fair",
+  "訳あり": "cond_poor",
+};
+
+function translateCond(cond) {
+  return cond ? (T[currentLang][COND_MAP[cond]] || cond) : "";
+}
+
+function getItemName(item) {
+  return (currentLang === "my" && item.name_my) ? item.name_my : item.name;
+}
+function getItemDesc(item) {
+  return (currentLang === "my" && item.description_my) ? item.description_my : item.description;
+}
+
+function isClosed() { return new Date() >= CONFIG.deadline; }
+
+function fmt(price, currency) {
+  if (price == null) return currentLang === "my" ? "ညှိနှိုင်းရမည်" : "要相談";
+  if ((currency || "Ks") === "¥") return "¥" + price.toLocaleString();
+  return price.toLocaleString() + " Ks";
+}
+
+function buildFormUrl(itemName) {
+  const base = CONFIG.googleFormUrl;
+  if (base.includes("YOUR_FORM_ID_HERE")) return null;
+  const p = new URLSearchParams();
+  if (CONFIG.googleFormItemField && !CONFIG.googleFormItemField.includes("XXXXX")) {
+    p.set(CONFIG.googleFormItemField, itemName);
+  }
+  return base + "?" + p.toString();
+}
+
+function getImages(item) {
+  if (Array.isArray(item.images) && item.images.length > 0) return item.images;
+  if (item.image) return [item.image];
+  return [];
+}
+
+/* ---------- 言語切り替え ---------- */
+function setLang(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang === "my" ? "my" : "ja";
+
+  // 静的テキスト更新
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const v = T[lang][el.dataset.i18n];
+    if (v !== undefined) el.textContent = v;
+  });
+  document.querySelectorAll("[data-i18n-html]").forEach(el => {
+    const v = T[lang][el.dataset.i18nHtml];
+    if (v !== undefined) el.innerHTML = v;
+  });
+
+  // モーダル内ラベル更新
+  const mpl = document.getElementById("modal-price-label");
+  const mpn = document.getElementById("modal-price-note");
+  if (mpl) mpl.textContent = t("modal_price_label");
+  if (mpn) mpn.textContent = t("modal_price_note");
+
+  // toggle ボタン状態
+  document.getElementById("btn-ja").classList.toggle("active", lang === "ja");
+  document.getElementById("btn-my").classList.toggle("active", lang === "my");
+
+  // カード再描画
+  renderGrid();
+}
+
+/* ---------- カード描画 ---------- */
+function renderGrid() {
+  const grid = document.getElementById("grid");
+  grid.innerHTML = ITEMS.map(item => {
+    const imgs     = getImages(item);
+    const firstImg = imgs[0] || "";
+    const cond     = translateCond(item.condition);
+    const hasPrice = item.minPrice != null;
+    const countBadge = imgs.length > 1
+      ? `<span class="photo-count-tag">${t("photo_count")(imgs.length)}</span>` : "";
+    const imgHtml = firstImg
+      ? `<img src="${firstImg}" alt="${getItemName(item)}"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+         <div class="card-img-fallback" style="display:none">📷</div>`
+      : `<div class="card-img-fallback">📷</div>`;
+    return `
+    <article class="card" onclick="openModal(${item.id})" tabindex="0"
+      onkeydown="if(event.key==='Enter')openModal(${item.id})">
+      <div class="card-img-wrap">
+        ${imgHtml}
+        ${cond ? `<span class="condition-tag">${cond}</span>` : ""}
+        ${countBadge}
+      </div>
+      <div class="card-body">
+        <div class="card-name">${getItemName(item)}</div>
+        <div class="card-desc">${getItemDesc(item)}</div>
+        <div class="card-price-wrap">
+          <div class="card-price-label">${t("min_price_label")}</div>
+          <div class="card-price" style="${hasPrice?"":"color:var(--muted);font-size:1.1rem"}">${fmt(item.minPrice,item.currency)}${hasPrice?`<small> ${t("tilde")}</small>`:""}</div>
+        </div>
+        <button class="btn-bid" ${isClosed() ? "disabled" : ""}>
+          ${isClosed() ? t("btn_closed") : t("btn_detail")}
+        </button>
+      </div>
+    </article>`;
+  }).join("");
+}
+
+/* ---------- ギャラリー ---------- */
+let _galleryImgs = [];
+let _galleryIdx  = 0;
+
+function goGallery(idx) {
+  const imgs = _galleryImgs;
+  if (!imgs.length) return;
+  _galleryIdx = (idx + imgs.length) % imgs.length;
+
+  const mainEl  = document.getElementById("gallery-main");
+  const fallback = document.getElementById("gallery-fallback");
+
+  let imgEl = mainEl.querySelector("img");
+  if (!imgEl) {
+    imgEl = document.createElement("img");
+    imgEl.style.cssText = "position:absolute;inset:0;width:100%;height:100%;object-fit:contain;";
+    mainEl.insertBefore(imgEl, fallback);
+  }
+  imgEl.src = imgs[_galleryIdx];
+  imgEl.onerror = () => { imgEl.style.display = "none"; fallback.style.display = "flex"; };
+  imgEl.onload  = () => { fallback.style.display = "none"; imgEl.style.display = "block"; };
+  fallback.style.display = "none";
+
+  document.querySelectorAll(".gallery-dot").forEach((d, i) =>
+    d.classList.toggle("active", i === _galleryIdx));
+  document.querySelectorAll(".gallery-thumb").forEach((th, i) =>
+    th.classList.toggle("active", i === _galleryIdx));
+
+  const multi = imgs.length > 1;
+  document.getElementById("gallery-prev").style.display = multi ? "flex" : "none";
+  document.getElementById("gallery-next").style.display = multi ? "flex" : "none";
+}
+
+function initGallery(item) {
+  const imgs = getImages(item);
+  _galleryImgs = imgs;
+  _galleryIdx  = 0;
+
+  const mainEl  = document.getElementById("gallery-main");
+  const fallback = document.getElementById("gallery-fallback");
+  mainEl.querySelectorAll("img").forEach(e => e.remove());
+  fallback.style.display = imgs.length ? "none" : "flex";
+
+  document.getElementById("gallery-dots").innerHTML = imgs.length > 1
+    ? imgs.map((_, i) =>
+        `<button class="gallery-dot${i===0?" active":""}"
+          onclick="goGallery(${i})" aria-label="${i+1}"></button>`).join("")
+    : "";
+
+  const thumbsEl = document.getElementById("gallery-thumbs");
+  if (imgs.length > 1) {
+    thumbsEl.style.display = "flex";
+    thumbsEl.innerHTML = imgs.map((src, i) =>
+      `<div class="gallery-thumb${i===0?" active":""}" onclick="goGallery(${i})">
+         <img src="${src}" alt="${i+1}"
+              onerror="this.parentElement.style.display='none'">
+       </div>`).join("");
+  } else {
+    thumbsEl.style.display = "none";
+    thumbsEl.innerHTML = "";
+  }
+
+  if (imgs.length) goGallery(0);
+}
+
+/* ---------- モーダル ---------- */
+function openModal(id) {
+  const item = ITEMS.find(i => i.id === id);
+  if (!item) return;
+
+  initGallery(item);
+
+  document.getElementById("modal-cond").textContent  = translateCond(item.condition);
+  document.getElementById("modal-name").textContent  = getItemName(item);
+  document.getElementById("modal-desc").textContent  = getItemDesc(item);
+  const hasPrice = item.minPrice != null;
+  document.getElementById("modal-price").textContent       = fmt(item.minPrice, item.currency);
+  document.getElementById("modal-price-label").textContent = t("modal_price_label");
+  const priceNote = document.getElementById("modal-price-note");
+  priceNote.textContent   = t("modal_price_note");
+  priceNote.style.display = hasPrice ? "" : "none";
+
+  document.getElementById("modal-ref").innerHTML = item.productUrl
+    ? `<a class="modal-ref-link" href="${item.productUrl}" target="_blank" rel="noopener">
+         ${t("ref_link")}
+       </a>` : "";
+
+  const actionEl = document.getElementById("modal-action");
+  if (isClosed()) {
+    actionEl.innerHTML = `<span class="bid-closed">${t("bid_closed")}</span>`;
+  } else {
+    const formUrl = buildFormUrl(item.name);
+    actionEl.innerHTML = formUrl
+      ? `<a class="btn-bid-lg" href="${formUrl}" target="_blank" rel="noopener">${t("btn_bid")}</a>`
+      : `<p style="color:#e76f51;font-size:.85rem;text-align:center;font-weight:700">${t("form_not_set")}</p>`;
+  }
+
+  document.getElementById("overlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+  document.getElementById("modal-close").focus();
+}
+
+function closeModal() {
+  document.getElementById("overlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+document.getElementById("overlay").addEventListener("click", e => {
+  if (e.target === document.getElementById("overlay")) closeModal();
+});
+document.getElementById("modal-close").addEventListener("click", closeModal);
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+document.getElementById("gallery-prev").addEventListener("click", e => {
+  e.stopPropagation(); goGallery(_galleryIdx - 1);
+});
+document.getElementById("gallery-next").addEventListener("click", e => {
+  e.stopPropagation(); goGallery(_galleryIdx + 1);
+});
+
+/* ---------- カウントダウン ---------- */
+function tick() {
+  const diff = CONFIG.deadline - new Date();
+  if (diff <= 0) {
+    document.getElementById("countdown").innerHTML =
+      `<div style="font-size:1.6rem;font-weight:900;letter-spacing:.05em">${t("closed_msg")}</div>`;
+    renderGrid();
+    return;
+  }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  document.getElementById("cd-days").textContent  = d;
+  document.getElementById("cd-hours").textContent = String(h).padStart(2, "0");
+  document.getElementById("cd-mins").textContent  = String(m).padStart(2, "0");
+  document.getElementById("cd-secs").textContent  = String(s).padStart(2, "0");
+}
+
+/* ---------- 初期化 ---------- */
+renderGrid();
+tick();
+setInterval(tick, 1000);
+</script>
+</body>
+</html>
