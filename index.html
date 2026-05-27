@@ -878,7 +878,7 @@ function buildFormUrl(itemName) {
   const base = CONFIG.googleFormUrl;
   if (base.includes("YOUR_FORM_ID_HERE")) return null;
   if (!CONFIG.googleFormItemField || CONFIG.googleFormItemField.includes("XXXXX")) return base;
-  return base + "?" + CONFIG.googleFormItemField + "=" + encodeURIComponent(itemName);
+  return base + "?usp=pp_url&" + CONFIG.googleFormItemField + "=" + encodeURIComponent(itemName);
 }
 
 function getImages(item) {
