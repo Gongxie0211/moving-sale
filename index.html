@@ -860,9 +860,16 @@ function getItemDesc(item) {
 
 function isClosed() { return new Date() >= CONFIG.deadline; }
 
+const KS_TO_YEN = 25; // 25 Ks = ¥1
+
 function fmt(price, currency) {
   if (price == null) return currentLang === "my" ? "ညှိနှိုင်းရမည်" : "要相談";
-  if ((currency || "Ks") === "¥") return "¥" + price.toLocaleString();
+  const cur = currency || "Ks";
+  // 日本語モード かつ Ks建て → 円換算して表示
+  if (currentLang === "ja" && cur === "Ks") {
+    return "¥" + Math.round(price / KS_TO_YEN).toLocaleString();
+  }
+  if (cur === "¥") return "¥" + price.toLocaleString();
   return price.toLocaleString() + " Ks";
 }
 
